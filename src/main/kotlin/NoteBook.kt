@@ -1,17 +1,20 @@
 object NoteBook {
-    var notes = listOf<Note>()
-    var comments = listOf<Comment>()
+    var notes = mutableListOf<Note>()
+    var comments = mutableListOf<Comment>()
 
     fun addNote(note: Note): Note {
-        notes += note.copy(id = notes.size + 1, deleted = false)
+        val newNote = note.copy(id = notes.size + 1, deleted = false)
+        notes.plusAssign(newNote)
         return notes.last()
     }
 
     fun addComment(id: Int, comment: Comment): Comment {
-        for ((index, note) in notes.withIndex()) {
+        for (note in notes) {
             if (!note.deleted) {
                 if (id == note.id) {
-                    comments += comment.copy(commentId = comments.size + 1, message = comment.message, deleted = false)
+                    val newComment = comment.copy(noteId = note.id, commentId = comments.size + 1,
+                            message = comment.message, deleted = false)
+                    comments.plusAssign(newComment)
                     return comments.last()
                 }
             }
@@ -19,13 +22,12 @@ object NoteBook {
         throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
+
     fun deleteNote(id: Int): Boolean {
-//        notes.forEachIndexed { index, note ->
         for ((index, note) in notes.withIndex()) {
             if (!note.deleted) {
                 if (id == note.id) {
-                    val newNote = note.copy(id = note.id, deleted = true)
-                    val note = newNote
+                    notes[index] = note.copy(id = note.id, deleted = true)
                     return true
                 }
             }
@@ -37,8 +39,7 @@ object NoteBook {
         for ((index, comment) in comments.withIndex()) {
             if (!comment.deleted) {
                 if (idComment == comment.commentId) {
-                    val newComment = comment.copy(commentId = comment.commentId, deleted = true)
-                    val comment = newComment
+                    comments[index] = comment.copy(commentId = comment.commentId, deleted = true)
                     return true
                 }
             }
@@ -46,12 +47,12 @@ object NoteBook {
         throw CommentNotFoundException("Комментария с таким ID не существует!")
     }
 
-    fun editNote(id: Int): Boolean {
+    fun editNote(id: Int, newNote: Note): Boolean {
         for ((index, note) in notes.withIndex()) {
             if (!note.deleted) {
                 if (id == note.id) {
-                    val newNote = note.copy(id = note.id)
-                    val note = newNote
+                    val newNote = note.copy(id = note.id, deleted = false)
+                    notes.plusAssign(newNote)
                     return true
                 }
             }
@@ -94,11 +95,11 @@ object NoteBook {
         throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
-    fun getComments(id: Int) {
+    fun getComments(id: Int, comment: Comment) {
         for (note in notes) {
-            if (id == note.id) {
+            if (id == comment.noteId) {
                 if (!note.deleted) {
-                    println(note.comment)
+                    println(comment)
                 }
             }
         }
@@ -115,13 +116,13 @@ object NoteBook {
                 }
             }
         }
-        throw CommentNotFoundException("Удаленного комментария с таким ID не существует!")
+        throw CommentDeleteNotFoundException("Удаленного комментария с таким ID не существует!")
     }
-
-
-
 }
-class NoteNotFoundException(message: String) : RuntimeException()
-class CommentNotFoundException(message: String) : RuntimeException()
-class UserNotFoundException(message: String) : RuntimeException()
 
+
+
+class NoteNotFoundException(message: String) : RuntimeException("Заметки с таким ID не существует!")
+class CommentNotFoundException(message: String) : RuntimeException("Комментария с таким ID не существует!")
+class UserNotFoundException(message: String) : RuntimeException("Пользователя с таким ID не существует!")
+class CommentDeleteNotFoundException(message: String) : RuntimeException("Удаленного комментария с таким ID не существует!")
