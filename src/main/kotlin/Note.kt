@@ -1,16 +1,27 @@
 data class Note(
+    val userId: Int,
     val id: Int,
     val title: String,
     val text: String,
     var deleted: Boolean = false,
     val comment: Comment
-)
+) {
+    override fun toString(): String {
+        return """|  
+            |  Note: 
+            |(userId = $userId, 
+            |id = $id, 
+            |title = '$title', 
+            |text = '$text', 
+            |deleted = $deleted, 
+            |comment = $comment)""".trimMargin()
+    }
+}
 
 data class Comment(
     val message: String = "",
     val commentId: Int = 0,
-    val count: Int = 0,
-    val deleted: Boolean = false
+    val deleted: Boolean = true
 )
 
 
