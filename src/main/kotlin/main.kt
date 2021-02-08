@@ -1,18 +1,43 @@
+import NoteBook.addComment
 import NoteBook.notes
 import NoteBook.addNote
+import NoteBook.comments
+import NoteBook.deleteComment
+import NoteBook.deleteNote
+import NoteBook.editNote
 
 fun main(args: Array<String>) {
 
-    val note_1 = Note(0, "txt1", "txt1", deleted = false,
-        comment = Comment("",0,0, deleted = false))
+    val note_1 = Note(100,0, "txt1", "txt1", deleted = true)
 
-    val note_2 = Note(0, "txt2", "txt2", deleted = false,
-        comment = Comment("",0,0, deleted = false))
+    val note_2 = Note(100,0, "txt2", "txt2", deleted = true)
 
+    val note_3 = Note(100,0, "txt3", "txt3", deleted = true)
+
+    val note_4 = Note(100,0, "txt4", "txt4", deleted = true)
 
     addNote(note_1)
     addNote(note_2)
-    println(notes)
+    addNote(note_3)
+    addNote(note_4)
+//    println(notes)
 
+    val comment_1 = Comment(4,"comment_4", 0, true)
+    val comment_2 = Comment(2,"comment_2", 0, true)
+
+    addComment(4, comment_1)
+    addComment(4, comment_2)
+//    println(notes[3])
+//    println(comments)
+
+    deleteNote(2)
+//    println(notes)
+
+    deleteComment(1)
+//    println(comments)
+
+    val note_30 = Note(100,0, "txt300", "txt300", deleted = true)
+    editNote(3, note_30)
+    println(notes)
 
 }
