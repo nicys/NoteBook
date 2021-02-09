@@ -7,6 +7,7 @@ import NoteBook.deleteNote
 import NoteBook.editComment
 import NoteBook.editNote
 import NoteBook.getById
+import NoteBook.getComments
 import NoteBook.getNotes
 
 fun main(args: Array<String>) {
@@ -48,6 +49,8 @@ fun main(args: Array<String>) {
 
 //    getNotes(10)
 
-    getById(1)
+//    getById(1)
+
+    getComments(4)
 
 }

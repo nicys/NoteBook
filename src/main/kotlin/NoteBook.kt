@@ -97,15 +97,13 @@ object NoteBook {
 //        throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
-    fun getComments(id: Int, comment: Comment) {
-        for (note in notes) {
+    fun getComments(id: Int) {
+        for (comment in comments) {
             if (id == comment.noteId) {
-                if (!note.deleted) {
                     println(comment)
-                }
             }
         }
-        throw NoteNotFoundException("Заметки с таким ID не существует!")
+//        throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
     fun restoreComment(idComment: Int): Boolean {
@@ -121,8 +119,6 @@ object NoteBook {
         throw CommentDeleteNotFoundException("Удаленного комментария с таким ID не существует!")
     }
 }
-
-
 
 class NoteNotFoundException(message: String) : RuntimeException("Заметки с таким ID не существует!")
 class CommentNotFoundException(message: String) : RuntimeException("Комментария с таким ID не существует!")
