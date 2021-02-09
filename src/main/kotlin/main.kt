@@ -4,6 +4,7 @@ import NoteBook.addNote
 import NoteBook.comments
 import NoteBook.deleteComment
 import NoteBook.deleteNote
+import NoteBook.editComment
 import NoteBook.editNote
 
 fun main(args: Array<String>) {
@@ -28,16 +29,22 @@ fun main(args: Array<String>) {
     addComment(4, comment_1)
     addComment(4, comment_2)
 //    println(notes[3])
-//    println(comments)
+    println(comments)
+    println("****************************************************")
 
     deleteNote(2)
 //    println(notes)
 
     deleteComment(1)
-//    println(comments)
+    println(comments)
+    println("****************************************************")
 
     val note_30 = Note(100,0, "txt300", "txt300", deleted = true)
     editNote(3, note_30)
-    println(notes)
+//    println(notes)
+
+    val comment_20 = Comment(20,"comment_20 for change", 10, true)
+    editComment(1, comment_20)
+    println(comments)
 
 }
