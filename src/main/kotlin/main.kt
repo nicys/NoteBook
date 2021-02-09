@@ -48,11 +48,11 @@ fun main(args: Array<String>) {
     editComment(2, comment_20)
 //    println(comments)
 
-//    getNotes(10)
+    getNotes(10) // вылетает Exception
 
-//    getById(1)
+    getById(1)      // вылетает Exception
 
-//    getComments(4)
+    getComments(4)  // вылетает Exception
 
     restoreComment(3)
     println(comments)
