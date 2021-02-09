@@ -60,12 +60,12 @@ object NoteBook {
         throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
-    fun editComment(idComment: Int): Boolean {
+    fun editComment(idComment: Int, newComment: Comment): Boolean {
         for ((index, comment) in comments.withIndex()) {
             if (!comment.deleted) {
                 if (idComment == comment.commentId) {
-                    val newComment = comment.copy(commentId = comment.commentId)
-                    val comment = newComment
+                    comments[index] = comment.copy(noteId = comment.noteId, commentId = comment.commentId,
+                            deleted = false, message = newComment.message)
                     return true
                 }
             }
