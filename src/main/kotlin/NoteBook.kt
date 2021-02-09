@@ -73,15 +73,15 @@ object NoteBook {
         throw CommentNotFoundException("Комментария с таким ID не существует!")
     }
 
-    fun get(idUser: Int) {
+    fun getNotes(idUser: Int) {
         for (note in notes) {
-            if (!note.deleted) {
-                if (idUser == note.userId) {
-                    println("Note of User with ID: ${note.userId} - ${note.title}")
+            if (idUser == note.userId) {
+                 if (!note.deleted) {
+                    println("${note.title} - ${note.text}")
                 }
             }
         }
-        throw UserNotFoundException("Пользователя с таким ID не существует!")
+//        throw UserNotFoundException("Пользователя с таким ID не существует!")
     }
 
     fun getById(id: Int) {
@@ -124,5 +124,5 @@ object NoteBook {
 
 class NoteNotFoundException(message: String) : RuntimeException("Заметки с таким ID не существует!")
 class CommentNotFoundException(message: String) : RuntimeException("Комментария с таким ID не существует!")
-class UserNotFoundException(message: String) : RuntimeException("Пользователя с таким ID не существует!")
+//class UserNotFoundException(message: String) : RuntimeException("Пользователя с таким ID не существует!")
 class CommentDeleteNotFoundException(message: String) : RuntimeException("Удаленного комментария с таким ID не существует!")
