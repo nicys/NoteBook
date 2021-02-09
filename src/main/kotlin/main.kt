@@ -24,8 +24,8 @@ fun main(args: Array<String>) {
     addNote(note_4)
 //    println(notes)
 
-    val comment_1 = Comment(4,"comment_4", 0, true)
-    val comment_2 = Comment(2,"comment_2", 0, true)
+    val comment_1 = Comment(0,"comment_4", 0, true)
+    val comment_2 = Comment(0,"comment_2", 0, true)
 
     addComment(4, comment_1)
     addComment(4, comment_2)

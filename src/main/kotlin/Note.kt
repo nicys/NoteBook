@@ -15,7 +15,7 @@ data class Note(
 }
 
 data class Comment(
-    val noteId: Int,
+    val noteId: Int = 0,
     val message: String = "",
     val commentId: Int = 0,
     val deleted: Boolean = true
