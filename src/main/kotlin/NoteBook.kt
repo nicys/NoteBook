@@ -77,7 +77,7 @@ object NoteBook {
         for (note in notes) {
             if (idUser == note.userId) {
                  if (!note.deleted) {
-                    println("${note.title}")
+                    println(note.title)
                 }
             }
         }
@@ -100,7 +100,7 @@ object NoteBook {
     fun getComments(id: Int) {
         for (comment in comments) {
             if (id == comment.noteId) {
-                    println(comment)
+                    println(comment.message)
             }
         }
 //        throw NoteNotFoundException("Заметки с таким ID не существует!")
