@@ -51,8 +51,8 @@ object NoteBook {
         for ((index, note) in notes.withIndex()) {
             if (!note.deleted) {
                 if (id == note.id) {
-                    val newNote = note.copy(id = note.id, deleted = false)
-                    notes.plusAssign(newNote)
+                    notes[index] = note.copy(id = note.id, userId = note.userId, title = newNote.title,
+                            text = newNote.text, deleted = false)
                     return true
                 }
             }
