@@ -81,7 +81,6 @@ object NoteBook : NoteInterface<Note, Comment> {
                 }
             }
         }
-//        throw UserNotFoundException("Пользователя с таким ID не существует!")
     }
 
     override fun getById(id: Int) {
@@ -94,7 +93,6 @@ object NoteBook : NoteInterface<Note, Comment> {
                 }
             }
         }
-//        throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
     override fun getComments(id: Int) {
@@ -103,7 +101,6 @@ object NoteBook : NoteInterface<Note, Comment> {
                     println(comment.message)
             }
         }
-//        throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
     override fun restoreComment(idComment: Int): Boolean {
@@ -121,5 +118,4 @@ object NoteBook : NoteInterface<Note, Comment> {
 
 class NoteNotFoundException(message: String) : RuntimeException("Заметки с таким ID не существует!")
 class CommentNotFoundException(message: String) : RuntimeException("Комментария с таким ID не существует!")
-//class UserNotFoundException(message: String) : RuntimeException("Пользователя с таким ID не существует!")
 class CommentDeleteNotFoundException(message: String) : RuntimeException("Удаленного комментария с таким ID не существует!")
