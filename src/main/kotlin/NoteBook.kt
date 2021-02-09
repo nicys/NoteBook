@@ -1,14 +1,14 @@
-object NoteBook {
+object NoteBook : NoteInterface<Note, Comment> {
     var notes = mutableListOf<Note>()
     var comments = mutableListOf<Comment>()
 
-    fun addNote(note: Note): Note {
+    override fun addNote(note: Note): Note {
         val newNote = note.copy(id = notes.size + 1, deleted = false)
         notes.plusAssign(newNote)
         return notes.last()
     }
 
-    fun addComment(id: Int, comment: Comment): Comment {
+    override fun addComment(id: Int, comment: Comment): Comment {
         for (note in notes) {
             if (!note.deleted) {
                 if (id == note.id) {
@@ -23,7 +23,7 @@ object NoteBook {
     }
 
 
-    fun deleteNote(id: Int): Boolean {
+    override fun deleteNote(id: Int): Boolean {
         for ((index, note) in notes.withIndex()) {
             if (!note.deleted) {
                 if (id == note.id) {
@@ -35,7 +35,7 @@ object NoteBook {
         throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
-    fun deleteComment(idComment: Int): Boolean {
+    override fun deleteComment(idComment: Int): Boolean {
         for ((index, comment) in comments.withIndex()) {
             if (!comment.deleted) {
                 if (idComment == comment.commentId) {
@@ -47,7 +47,7 @@ object NoteBook {
         throw CommentNotFoundException("Комментария с таким ID не существует!")
     }
 
-    fun editNote(id: Int, newNote: Note): Boolean {
+    override fun editNote(id: Int, newNote: Note): Boolean {
         for ((index, note) in notes.withIndex()) {
             if (!note.deleted) {
                 if (id == note.id) {
@@ -60,7 +60,7 @@ object NoteBook {
         throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
-    fun editComment(idComment: Int, newComment: Comment): Boolean {
+    override fun editComment(idComment: Int, newComment: Comment): Boolean {
         for ((index, comment) in comments.withIndex()) {
             if (!comment.deleted) {
                 if (idComment == comment.commentId) {
@@ -73,7 +73,7 @@ object NoteBook {
         throw CommentNotFoundException("Комментария с таким ID не существует!")
     }
 
-    fun getNotes(idUser: Int) {
+    override fun getNotes(idUser: Int) {
         for (note in notes) {
             if (idUser == note.userId) {
                  if (!note.deleted) {
@@ -84,7 +84,7 @@ object NoteBook {
 //        throw UserNotFoundException("Пользователя с таким ID не существует!")
     }
 
-    fun getById(id: Int) {
+    override fun getById(id: Int) {
         for (note in notes) {
             if (id == note.id) {
                 if (!note.deleted) {
@@ -97,7 +97,7 @@ object NoteBook {
 //        throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
-    fun getComments(id: Int) {
+    override fun getComments(id: Int) {
         for (comment in comments) {
             if (id == comment.noteId) {
                     println(comment.message)
@@ -106,7 +106,7 @@ object NoteBook {
 //        throw NoteNotFoundException("Заметки с таким ID не существует!")
     }
 
-    fun restoreComment(idComment: Int): Boolean {
+    override fun restoreComment(idComment: Int): Boolean {
         for ((index, comment) in comments.withIndex()) {
             if (idComment == comment.commentId) {
                 if (comment.deleted) {
