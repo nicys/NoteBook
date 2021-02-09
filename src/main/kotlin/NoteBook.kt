@@ -107,11 +107,10 @@ object NoteBook {
     }
 
     fun restoreComment(idComment: Int): Boolean {
-        for (comment in comments) {
+        for ((index, comment) in comments.withIndex()) {
             if (idComment == comment.commentId) {
                 if (comment.deleted) {
-                    val newComment = comment.copy(commentId = comment.commentId, deleted = false)
-                    val comment = newComment
+                    comments[index] = comment.copy(commentId = comment.commentId, deleted = false)
                     return true
                 }
             }

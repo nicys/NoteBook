@@ -9,6 +9,7 @@ import NoteBook.editNote
 import NoteBook.getById
 import NoteBook.getComments
 import NoteBook.getNotes
+import NoteBook.restoreComment
 
 fun main(args: Array<String>) {
 
@@ -29,14 +30,14 @@ fun main(args: Array<String>) {
     addComment(4, comment_1)
     addComment(4, comment_2)
 //    println(notes[3])
-//    println(comments)
+    println(comments)
     println("****************************************************")
 
     deleteNote(2)
 //    println(notes)
 
     deleteComment(1)
-//    println(comments)
+    println(comments)
     println("****************************************************")
 
     val note_30 = Note(100,0, "txt300", "txt300", deleted = true)
@@ -51,6 +52,9 @@ fun main(args: Array<String>) {
 
 //    getById(1)
 
-    getComments(4)
+//    getComments(4)
+
+    restoreComment(3)
+    println(comments)
 
 }
