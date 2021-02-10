@@ -1,9 +1,9 @@
 data class Note(
-    val userId: Int,
-    val id: Int,
-    val title: String,
-    val text: String,
-    var deleted: Boolean = false,
+        var userId: Int,
+        var id: Int,
+        val title: String,
+        val text: String,
+        var deleted: Boolean = false
     ) {
     override fun toString(): String {
         return """|  
@@ -15,10 +15,10 @@ data class Note(
 }
 
 data class Comment(
-    val noteId: Int = 0,
-    val message: String = "",
-    val commentId: Int = 0,
-    val deleted: Boolean = true
+        val noteId: Int = 0,
+        val message: String = "",
+        var commentId: Int = 0,
+        var deleted: Boolean = true
 ) {
     override fun toString(): String {
         return """|
