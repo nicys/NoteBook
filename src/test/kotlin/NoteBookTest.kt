@@ -15,26 +15,24 @@ class NoteBookTest {
     @Test
     fun testAddNote() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        note.id = 1
+        val noteTest: Note = Note(0, 0, "", "", false)
+        noteTest.id = 1
         //Act
         val result = 1
         //Assert
-        assertEquals(note.id, result)
-
+        assertEquals(noteTest.id, result)
     }
 
     @Test
     fun testAddComment() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        val noteTest = addNote(note)
-        val comment: Comment = Comment(0, "", 0, true)
-        val expected = addComment(1, comment)
+        val noteTest: Note = Note(0, 1, "", "", false)
+        noteTest.id = 1
+        val commentTest: Comment = Comment(1, "", 0, false)
         //Act
-        val result = 1
+        commentTest.commentId = 1
         //Assert
-        assertEquals(expected.commentId, result)
+        assertEquals(commentTest.commentId, noteTest.id)
     }
 
     @Test(expected = NoteNotFoundException::class)
@@ -43,7 +41,7 @@ class NoteBookTest {
         val comment: Comment = Comment(0, "", 0, true)
         val expected = NoteNotFoundException::class
         //Act
-        val result = addComment(1, comment)
+        val result = addComment(10, comment)
         //Assert
         assertEquals(expected, result)
     }
@@ -51,14 +49,15 @@ class NoteBookTest {
     @Test
     fun testDeleteNote() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        val noteAdd = addNote(note)
+        val noteTest: Note = Note(0, 0, "", "", false)
+        addNote(noteTest)
+        noteTest.id = 1
         //Act
-        val noteDel = deleteNote(1)
-        noteAdd.deleted = true
+        deleteNote(1)
+        noteTest.deleted = true
         val result = true
         //Assert
-        assertEquals(noteAdd.deleted, result)
+        assertEquals(noteTest.deleted, result)
     }
 
     @Test(expected = NoteNotFoundException::class)
@@ -66,7 +65,7 @@ class NoteBookTest {
         //Arrange
         val expected = NoteNotFoundException::class
         //Act
-        val noteDel = deleteNote(1)
+        deleteNote(10)
         val result = NoteNotFoundException::class
         //Assert
         assertEquals(expected, result)
@@ -75,16 +74,16 @@ class NoteBookTest {
     @Test
     fun testDeleteComment() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        val noteTest = addNote(note)
-        val comment: Comment = Comment(0, "", 0, true)
-        val commentAdd = addComment(1, comment)
+        val noteTest: Note = Note(0, 0, "", "", false)
+        addNote(noteTest)
+        val commentTest: Comment = Comment(0, "", 0, false)
+        addComment(1, commentTest)
         //Act
-        val commentDel = deleteComment(1)
-        commentAdd.deleted = true
+        deleteComment(1)
+        commentTest.deleted = true
         val result: Boolean = true
         //Assert
-        assertEquals(commentAdd.deleted, result)
+        assertEquals(commentTest.deleted, result)
     }
 
     @Test(expected = CommentNotFoundException::class)
@@ -92,7 +91,8 @@ class NoteBookTest {
         //Arrange
         val expected = CommentNotFoundException::class
         //Act
-        val result = deleteComment(1)
+        deleteComment(10)
+        val result = CommentNotFoundException::class
         //Assert
         assertEquals(expected, result)
     }
@@ -100,10 +100,11 @@ class NoteBookTest {
     @Test
     fun testEditNote() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        val noteTest = addNote(note)
+        val noteTest: Note = Note(0, 0, "", "", false)
+        addNote(noteTest)
+        noteTest.id = 1
         //Act
-        val noteEdit = editNote(1, noteTest)
+        editNote(1, noteTest)
         noteTest.deleted = false
         val result: Boolean = false
         //Assert
@@ -113,11 +114,13 @@ class NoteBookTest {
     @Test(expected = NoteNotFoundException::class)
     fun testEditNoteShouldThrow() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        val noteTest = addNote(note)
+        val noteTest: Note = Note(0, 0, "", "", false)
+        addNote(noteTest)
+        noteTest.id = 1
         val expected = NoteNotFoundException::class
         //Act
-        val result = editNote(2, noteTest)
+        editNote(10, noteTest)
+        val result = NoteNotFoundException::class
         //Assert
         assertEquals(expected, result)
     }
@@ -125,28 +128,27 @@ class NoteBookTest {
     @Test
     fun testEditComment() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        val noteTest = addNote(note)
-        val comment: Comment = Comment(0, "", 0, true)
-        val noteComment = addComment(1, comment)
+        val noteTest: Note = Note(0, 0, "", "", false)
+        addNote(noteTest)
+        val commentTest: Comment = Comment(0, "", 0, true)
+        addComment(1, commentTest)
         //Act
-        val commentEdit = editComment(1, noteComment)
-        noteComment.deleted = false
+        editComment(1, commentTest)
+        commentTest.deleted = false
         val result: Boolean = false
         //Assert
-        assertEquals(noteComment.deleted, result)
+        assertEquals(commentTest.deleted, result)
     }
+
 
     @Test(expected = CommentNotFoundException::class)
     fun testEditCommentShouldThrow() {
-        val note: Note = Note(0, 0, "", "", false)
-        val noteTest = addNote(note)
-        val comment: Comment = Comment(0, "", 0, true)
-        val noteComment = addComment(1, comment)
         //Arrange
+        val commentTest: Comment = Comment(0, "", 0, true)
         val expected = CommentNotFoundException::class
         //Act
-        val result = editComment(2, noteComment)
+        editComment(10, commentTest)
+        val result = CommentNotFoundException::class
         //Assert
         assertEquals(expected, result)
     }
@@ -154,8 +156,8 @@ class NoteBookTest {
     @Test
     fun testGetNotes() {
         //Arrange
-        val note: Note = Note(10, 0, "title", "", false)
-        val noteTest = addNote(note)
+        val noteTest: Note = Note(10, 0, "title", "", false)
+        addNote(noteTest)
         //Act
         val expected = "title"
         //Assert
@@ -166,7 +168,6 @@ class NoteBookTest {
     fun testGetById() {
         //Arrange
         val note: Note = Note(10, 0, "title", "text", false)
-        val noteTest = addNote(note)
         val expected = println("""|        title: title
                     |   text: text
                 """.trimMargin())
@@ -183,8 +184,8 @@ class NoteBookTest {
         //Arrange
         val note: Note = Note(0, 0, "", "", false)
         val comment: Comment = Comment(0, "commentMessage", 0, true)
-        val noteTest = addNote(note)
-        val commentTest = addComment(1, comment)
+        addNote(note)
+        addComment(1, comment)
         val expected = comment.message
         //Act
         val result = "commentMessage"
@@ -195,30 +196,26 @@ class NoteBookTest {
     @Test
     fun testRestoreComment() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        val noteTest = addNote(note)
-        val comment: Comment = Comment(0, "", 0, true)
-        val commentTest = addComment(1, comment)
-        val deletedComment = deleteComment(1)
-        comment.deleted = false
+        val commentTest: Comment = Comment(1, "", 1, true)
+        commentTest.commentId = 1
+        commentTest.deleted = true
         //Act
-        val commentEdit = restoreComment(1)
-        val result: Boolean = false
+        restoreComment(1)
+        val result = true
         //Assert
-        assertEquals(comment.deleted, result)
+        assertEquals(commentTest.deleted, result)
     }
 
     @Test(expected = CommentDeleteNotFoundException::class)
     fun testRestoreCommentShouldThrow() {
         //Arrange
-        val note: Note = Note(0, 0, "", "", false)
-        val noteTest = addNote(note)
-        val comment: Comment = Comment(0, "", 0, true)
-        val commentTest = addComment(1, comment)
+        val commentTest: Comment = Comment(1, "", 1, true)
+        commentTest.commentId = 1
+        commentTest.deleted = true
         val expected = CommentDeleteNotFoundException::class
         //Act
-        val commentEdit = restoreComment(1)
-        val result = commentTest.commentId
+        restoreComment(10)
+        val result = CommentDeleteNotFoundException::class
         //Assert
         assertEquals(expected, result)
     }
